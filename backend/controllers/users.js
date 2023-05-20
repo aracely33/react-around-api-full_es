@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
 
 const getUsers = (req, res) => {
   User.find({})
@@ -25,21 +26,28 @@ const getUsersById = (req, res) => {
     });
 };
 
-const postUser = (req, res) => {
-  const { name, about, avatar } = req.body;
-  User.create({ name, about, avatar })
+const createUser = (req, res, next) => {
+  const {
+    name = 'Jacques Cousteau',
+    about = 'Explorador',
+    avatar = 'enlace',
+    email,
+    password,
+  } = req.body;
+
+  bcrypt
+    .hash(password, 10)
+    .then((hash) =>
+      User.create({
+        name,
+        about,
+        avatar,
+        email,
+        password: hash,
+      })
+    )
     .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({
-          message:
-            'Se pasaron datos inválidos a los métodos para crear un usuario/tarjeta o actualizar el avatar/perfil de un usuario.',
-        });
-      }
-      return res
-        .status(500)
-        .send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+    .catch(next);
 };
 
 const updateProfile = (req, res) => {
@@ -103,7 +111,7 @@ const updateAvatar = (req, res) => {
 module.exports = {
   getUsers,
   getUsersById,
-  postUser,
+  createUser,
   updateProfile,
   updateAvatar,
 };
