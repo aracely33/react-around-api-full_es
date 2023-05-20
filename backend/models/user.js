@@ -18,11 +18,29 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(value) {
-        const urlRegex = /^(http|https):\/\/(www\.)?[\w.~:/?%#[\]@!$&'()*+,;=-]+[#]?$/;
+        const urlRegex =
+          /^(http|https):\/\/(www\.)?[\w.~:/?%#[\]@!$&'()*+,;=-]+[#]?$/;
         return urlRegex.test(value);
       },
       message: (props) => `${props.value} no es una URL válida`,
     },
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator(value) {
+        const urlRegex = /^\S+@\S+\.\S+$/;
+        return urlRegex.test(value);
+      },
+      message: (props) => `${props.value} no es un correo válido`,
+    },
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false,
   },
 });
 
