@@ -1,0 +1,26 @@
+.popup__container_function-image {
+  margin: 0 auto;
+  position: absolute;
+  top: 90px;
+  max-width: 75vw;
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+@media screen and (min-width: 510px) {
+  .popup__container_function-image {
+    min-width: unset;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .popup__container_function-image {
+    top: 136px;
+    max-width: 240px;
+    max-height: 299px;
+  }
+}

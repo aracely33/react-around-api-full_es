@@ -1,0 +1,11 @@
+.popup__container_function-change-profile-avatar {
+  background-color: #ffffff;
+  min-height: unset;
+  min-width: 430px;
+}
+
+@media screen and (max-width: 510px) {
+  .popup__container_function-change-profile-avatar {
+    min-width: unset;
+  }
+}

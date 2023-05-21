@@ -1,0 +1,14 @@
+.popup__image {
+  display: flex;
+  justify-content: center;
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+@media screen and (max-width: 321px) {
+  .popup__image {
+    min-width: 240px;
+    min-height: 299px;
+    align-self: center;
+  }
+}

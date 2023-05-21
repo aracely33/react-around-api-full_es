@@ -1,0 +1,19 @@
+.header__user-info {
+  display: flex;
+  gap: 23px;
+  align-items: baseline;
+  max-width: 244px;
+  transition: all 0.3s ease-in-out;
+}
+
+@media screen and (max-width: 773px) {
+  .header__user-info {
+    max-width: 150px;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .header__user-info {
+    display: none;
+  }
+}

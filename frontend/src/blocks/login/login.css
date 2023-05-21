@@ -1,0 +1,10 @@
+.login {
+  min-width: 358px;
+}
+
+@media screen and (max-width: 321px) {
+  .login {
+    max-width: 260px;
+    min-width: unset;
+  }
+}

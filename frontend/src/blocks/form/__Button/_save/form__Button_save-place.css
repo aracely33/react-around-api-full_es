@@ -1,0 +1,13 @@
+.form__Button_save-place {
+  font-size: 18px;
+  line-height: 1.2;
+  padding: 15px 34.63% 15px 34.63%;
+  background: #000000;
+  border-radius: 2px;
+}
+
+@media screen and (max-width: 321px) {
+  .form__Button_save-place {
+    font-size: 17px;
+  }
+}

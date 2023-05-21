@@ -1,0 +1,16 @@
+.item__place-like-button {
+  background-image: url("../../../images/heart.svg");
+  background-color: #ffffff;
+  border: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-width: 22px;
+  min-height: 19px;
+  align-self: center;
+  margin: 0;
+  padding: 0;
+}
+
+.item__place-like-button:hover {
+  opacity: 0.5;
+}

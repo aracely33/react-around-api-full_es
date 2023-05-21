@@ -1,0 +1,13 @@
+.item {
+  max-width: 282px;
+  max-height: 361px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+@media screen and (max-width: 321px) {
+  .item {
+    width: 100%;
+  }
+}

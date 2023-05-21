@@ -1,0 +1,19 @@
+.header {
+  border-bottom: solid 1px #545454;
+  width: 68.75%;
+  justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0;
+  margin: 0 auto 36.25px auto;
+  min-height: 74px;
+}
+
+@media screen and (max-width: 321px) {
+  .header {
+    width: 100%;
+    margin: 0 0 38.25px 0;
+    justify-content: space-evenly;
+  }
+}

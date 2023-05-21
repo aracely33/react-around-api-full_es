@@ -1,0 +1,18 @@
+.root {
+  margin: auto;
+  padding: 40px 0 60px 0;
+  background: #000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+@media screen and (max-width: 321px) {
+  .root {
+    padding: 28px 0 36px 0;
+  }
+}

@@ -1,0 +1,9 @@
+.header__user-info_opened {
+  min-height: 142px;
+  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: -142px;
+}

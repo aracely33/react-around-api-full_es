@@ -1,0 +1,22 @@
+.form__Button_theme-dark {
+  width: 100%;
+  background: #ffffff;
+  border: none;
+  border-radius: 2px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  padding: 14px 84px;
+  margin: 0;
+  color: #000000;
+}
+
+@media screen and (max-width: 321px) {
+  .form__Button_theme-dark {
+    padding: 14px 35px;
+    font-size: 16px;
+  }
+}

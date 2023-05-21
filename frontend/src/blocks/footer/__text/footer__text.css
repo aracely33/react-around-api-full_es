@@ -1,0 +1,13 @@
+.footer__text {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: #545454;
+}
+
+@media screen and (max-width: 321px) {
+  .footer__text {
+    font-size: 14px;
+  }
+}

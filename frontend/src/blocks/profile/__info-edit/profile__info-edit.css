@@ -1,0 +1,17 @@
+.profile__info-edit {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin: 0 0 13px 0;
+}
+
+@media screen and (max-width: 321px) {
+  .profile__info-edit {
+    width: 79.4326%;
+    margin: 0 0 14px 0;
+  }
+}

@@ -1,29 +1,21 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
-const getUsers = (req, res) => {
+const { NODE_ENV, JWT_SECRET } = process.env;
+
+const getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send({ data: users }))
-    .catch(() => {
-      res.status(500).send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+    .catch(next);
 };
-const getUsersById = (req, res) => {
+
+const getUsersById = (req, res, next) => {
   const { id } = req.params;
   User.findById(id)
     .orFail()
     .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({ message: 'ID con formato incorrecto' });
-      }
-      if (err.name === 'DocumentNotFoundError') {
-        return res
-          .status(404)
-          .send({ message: 'No se ha encontrado ningun usuario con esa id' });
-      }
-      return res.status(500).send({ message: err.message });
-    });
+    .catch(next);
 };
 
 const createUser = (req, res, next) => {
@@ -50,7 +42,7 @@ const createUser = (req, res, next) => {
     .catch(next);
 };
 
-const updateProfile = (req, res) => {
+const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
@@ -61,25 +53,10 @@ const updateProfile = (req, res) => {
   )
     .orFail()
     .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({
-          message:
-            'Se pasaron datos inválidos a los métodos para crear un usuario/tarjeta o actualizar el avatar/perfil de un usuario.',
-        });
-      }
-      if (err.name === 'DocumentNotFoundError') {
-        return res
-          .status(404)
-          .send({ message: 'No se ha encontrado ningun usuario con esa id' });
-      }
-      return res
-        .status(500)
-        .send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+    .catch(next);
 };
 
-const updateAvatar = (req, res) => {
+const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
@@ -90,22 +67,33 @@ const updateAvatar = (req, res) => {
   )
     .orFail()
     .then((user) => res.send({ data: user }))
+    .catch(next);
+};
+
+const login = (req, res) => {
+  const { email, password } = req.body;
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      res.send({
+        token: jwt.sign(
+          { _id: user._id },
+          NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+          {
+            expiresIn: '7d',
+          }
+        ),
+      });
+    })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({
-          message:
-            'Se pasaron datos inválidos a los métodos para crear un usuario/tarjeta o actualizar el avatar/perfil de un usuario.',
-        });
-      }
-      if (err.name === 'DocumentNotFoundError') {
-        return res
-          .status(404)
-          .send({ message: 'No se ha encontrado ningun usuario con esa id' });
-      }
-      return res
-        .status(500)
-        .send({ message: 'Ha ocurrido un error en el servidor' });
+      res.status(401).send({ message: err.message });
     });
+};
+
+const getUserInfo = (req, res, next) => {
+  const { _id } = req.user;
+  User.findById(_id)
+    .then((user) => res.send({ data: user }))
+    .catch(next);
 };
 
 module.exports = {
@@ -114,4 +102,6 @@ module.exports = {
   createUser,
   updateProfile,
   updateAvatar,
+  login,
+  getUserInfo,
 };

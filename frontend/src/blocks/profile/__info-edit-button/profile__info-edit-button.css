@@ -1,0 +1,31 @@
+.profile__info-edit-button {
+  background-image: url(../../../images/EditButton.svg);
+  background-color: black;
+  background-size: contain;
+  background-repeat: no-repeat;
+  -ms-flex-item-align: end;
+  align-self: flex-end;
+  width: 24px;
+  height: 24px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.profile__info-edit-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__info-edit-button {
+    min-width: 12px;
+    min-height: 12px;
+  }
+}
+
+@media screen and (max-width: 321px) {
+  .profile__info-edit-button {
+    min-width: 18px;
+    min-height: 18px;
+  }
+}

@@ -1,0 +1,10 @@
+.form_change-profile-avatar {
+  padding-bottom: 36px;
+  min-width: 358px;
+}
+
+@media screen and (max-width: 510px) {
+  .form_change-profile-avatar {
+    min-width: unset;
+  }
+}

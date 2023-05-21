@@ -1,0 +1,18 @@
+.popup__conatiner_function-infoToolTip {
+  background: #ffffff;
+  display: flex;
+  row-gap: 32px;
+  flex-direction: column;
+  border-radius: 10px;
+  max-width: 430px;
+  padding: 60px 0;
+}
+
+@media screen and (max-width: 321px) {
+  .popup__conatiner_function-infoToolTip {
+    min-width: 280px;
+    row-gap: 40px;
+    max-width: unset;
+    padding: 50px 0 26px 0;
+  }
+}
