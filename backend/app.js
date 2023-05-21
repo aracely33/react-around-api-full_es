@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const cardsRoute = require('./routes/cards');
 const usersRoute = require('./routes/users');
+const auth = require('./middleware/auth');
 
 const app = express();
 // conectar con el servidor MongoDB
@@ -19,7 +20,7 @@ app.use((req, res, next) => {
 
 app.post('/signin', login);
 app.post('/signup', createUser);
-
+app.use(auth);
 app.use('/users', usersRoute);
 app.use('/cards', cardsRoute);
 
