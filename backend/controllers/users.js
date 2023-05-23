@@ -22,11 +22,11 @@ const createUser = (req, res, next) => {
   const {
     name = 'Jacques Cousteau',
     about = 'Explorador',
-    avatar = 'enlace',
+    avatar = 'https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg',
     email,
     password,
   } = req.body;
-
+  console.log(password);
   bcrypt
     .hash(password, 10)
     .then((hash) =>
@@ -72,6 +72,7 @@ const updateAvatar = (req, res, next) => {
 
 const login = (req, res) => {
   const { email, password } = req.body;
+  console.log(password);
   return User.findUserByCredentials(email, password)
     .then((user) => {
       res.send({
