@@ -19,14 +19,8 @@ const getUsersById = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const {
-    name = 'Jacques Cousteau',
-    about = 'Explorador',
-    avatar = 'https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg',
-    email,
-    password,
-  } = req.body;
-  console.log(password);
+  const { name, about, avatar, email, password } = req.body;
+  console.log(`el request es : ${req}`);
   bcrypt
     .hash(password, 10)
     .then((hash) =>
@@ -44,6 +38,7 @@ const createUser = (req, res, next) => {
 
 const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
+  console.log(`el body request es  ${req.body}: `);
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
@@ -72,7 +67,7 @@ const updateAvatar = (req, res, next) => {
 
 const login = (req, res) => {
   const { email, password } = req.body;
-  console.log(password);
+  console.log(`el body request es  ${req.body}: `);
   return User.findUserByCredentials(email, password)
     .then((user) => {
       res.send({

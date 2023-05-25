@@ -9,11 +9,11 @@ const cardSchema = new mongoose.Schema({
   },
   link: {
     type: String,
-    minlength: 2,
     required: true,
     validate: {
       validator(value) {
-        const urlRegex = /^(http|https):\/\/(www\.)?[\w.~:/?%#[\]@!$&'()*+,;=-]+[#]?$/;
+        const urlRegex =
+          /^(http|https):\/\/(www\.)?[\w.~:/?%#[\]@!$&'()*+,;=-]+[#]?$/;
         return urlRegex.test(value);
       },
       message: (props) => `${props.value} no es una URL válida`,

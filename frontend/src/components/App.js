@@ -42,6 +42,28 @@ function App() {
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    const handleTokenCheck = () => {
+      if (localStorage.getItem("jwt")) {
+        const jwt = localStorage.getItem("jwt");
+        setToken(jwt);
+        auth
+          .checkToken(jwt)
+          .then((res) => {
+            if (res.data) {
+              setEmail(res.data.email);
+              setLoggedIn(true);
+              navigate("/");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    };
+    handleTokenCheck();
+  }, [loggedIn, navigate]);
+
+  React.useEffect(() => {
     if (token) {
       api.getUserInfo(token).then((data) => {
         setCurrentUser(data.data);
@@ -183,27 +205,6 @@ function App() {
     setEmail("");
     setLoggedIn(false);
   };
-
-  React.useEffect(() => {
-    const handleTokenCheck = () => {
-      if (localStorage.getItem("jwt")) {
-        const jwt = localStorage.getItem("jwt");
-        auth
-          .checkToken(jwt)
-          .then((res) => {
-            if (res.data) {
-              setEmail(res.data.email);
-              setLoggedIn(true);
-              navigate("/");
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    };
-    handleTokenCheck();
-  }, [loggedIn, navigate]);
 
   return (
     <>

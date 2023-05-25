@@ -19,18 +19,19 @@ const Register = () => {
     setInfoToolOpen(false);
     setError(false);
   };
+
   const onRegister = (e) => {
     e.preventDefault();
     const { password, email } = formData;
     console.log(formData);
     auth.register(password, email).then((res) => {
-      console.log(res);
-      /*if (res.data) {
+      console.log("la respuesta en el componente  Register es: " + res);
+      if (res.data) {
         navigate("/signin", { state: "success" });
       } else {
         setError(true);
       }
-      setInfoToolOpen(true);*/
+      setInfoToolOpen(true);
     });
   };
   return (

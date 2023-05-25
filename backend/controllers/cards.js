@@ -1,107 +1,56 @@
 const Card = require('../models/card');
 
-const getCards = (req, res) => {
+const getCards = (req, res, next) => {
   Card.find({})
     .then((cards) => res.send({ data: cards }))
-    .catch(() => {
-      res.status(500).send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+    .catch(next);
 };
-const createCard = (req, res) => {
+const createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.send({ data: card }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({
-          message:
-            'Se pasaron datos inválidos a los métodos para crear un usuario/tarjeta o actualizar el avatar/perfil de un usuario.',
-        });
-      }
-      return res
-        .status(500)
-        .send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+    .catch(next);
 };
-const deleteCard = (req, res) => {
+const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndRemove(cardId)
     .orFail()
-    .then((card) => res.send({ data: card }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({
-          message:
-            'Se pasaron datos inválidos a los métodos para crear un usuario/tarjeta o actualizar el avatar/perfil de un usuario.',
-        });
-      }
-      if (err.name === 'DocumentNotFoundError') {
+    .then((card) => {
+      if (card.owner.toString() !== _id) {
         return res
-          .status(404)
-          .send({ message: 'No se ha encontrado ninguna tarjeta con esa id' });
+          .status(403)
+          .send({ message: 'No tienes permisos para borrar esta tarjeta' });
       }
-      return res
-        .status(500)
-        .send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+      card.deleteOne();
+      return res.send({ data: card });
+    })
+    .catch(next);
 };
-const likeCard = (req, res) => {
+const likeCard = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndUpdate(
     cardId,
     { $addToSet: { likes: req.user._id } },
     {
       new: true,
-    },
+    }
   )
     .orFail()
     .then((card) => res.send({ data: card }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({
-          message:
-            'Se pasaron datos inválidos a los métodos para crear un usuario/tarjeta o actualizar el avatar/perfil de un usuario.',
-        });
-      }
-      if (err.name === 'DocumentNotFoundError') {
-        return res.status(404).send({
-          message:
-            'No se ha encontrado ninguna tarjeta con el id proporcionado',
-        });
-      }
-      return res
-        .status(500)
-        .send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+    .catch(next);
 };
-const dislikeCard = (req, res) => {
+const dislikeCard = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndUpdate(
     cardId,
     { $pull: { likes: req.user._id } },
     {
       new: true,
-    },
+    }
   )
     .orFail()
     .then((card) => res.send({ data: card }))
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        return res.status(400).send({
-          message:
-            'Se pasaron datos inválidos a los métodos para crear un usuario/tarjeta o actualizar el avatar/perfil de un usuario.',
-        });
-      }
-      if (err.name === 'DocumentNotFoundError') {
-        return res.status(404).send({
-          message:
-            'No se ha encontrado ninguna tarjeta con el id proporcionado',
-        });
-      }
-      return res
-        .status(500)
-        .send({ message: 'Ha ocurrido un error en el servidor' });
-    });
+    .catch(next);
 };
 
 module.exports = {

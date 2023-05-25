@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { login, createUser } = require('./controllers/users');
@@ -13,6 +14,7 @@ const app = express();
 // conectar con el servidor MongoDB
 mongoose.connect('mongodb://localhost:27017/aroundb');
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.options('*', cors());
 
