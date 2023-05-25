@@ -3,12 +3,12 @@ import PopupWithForm from "./PopupWithForm";
 import { UserContext } from "../contexts/UserContext";
 
 export default function EditAvatarPopup(props) {
+  const link = React.useRef();
   const currentUser = React.useContext(UserContext);
-
-  const avatarRef = React.useRef(currentUser.avatar);
   function handleSubmit(e) {
     e.preventDefault();
-    props.onUpdateAvatar({ avatar: avatarRef.current.value });
+    props.onUpdateAvatar(link.current.value);
+    link.current.value = "";
   }
 
   return (
@@ -23,8 +23,7 @@ export default function EditAvatarPopup(props) {
           placeholder: "Enlace a la imagen",
           name: "avatar",
           id: "form__input form__input_new-avatar-url popup__input",
-          ref: avatarRef,
-          value: undefined,
+          ref: link,
         },
       ]}
     />

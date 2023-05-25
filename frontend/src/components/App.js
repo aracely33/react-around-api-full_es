@@ -74,6 +74,7 @@ function App() {
   React.useEffect(() => {
     if (token) {
       api.getInitialCards(token).then((data) => {
+        console.log(data);
         setCards(data.data);
       });
     }
@@ -130,6 +131,7 @@ function App() {
   }
 
   function handleUpdateAvatar(link) {
+    console.log(`handleUpdateAvatar de app link : ${link}`);
     api
       .handleChangeAvatar(link, token)
       .then((data) =>
@@ -161,10 +163,11 @@ function App() {
 
   //Agregar un nuevo Lugar
   function handleAddPlaceSubmit({ title, link }) {
-    //echa un vistazo aquí token
-    api
-      .handleAddCard({ title, link }, token)
-      .then((newCard) => setCards([...cards, newCard.data]));
+    console.log(title, link);
+    api.handleAddCard({ title, link }, token).then((newCard) => {
+      console.log(newCard);
+      setCards([...cards, newCard.data]);
+    });
     closeAllPopups();
   }
   function handleNewPlaceTitleChange(e) {
