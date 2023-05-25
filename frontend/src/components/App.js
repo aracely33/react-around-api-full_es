@@ -38,28 +38,24 @@ function App() {
 
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState("");
-
+  const [token, setToken] = React.useState("");
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    api
-      .getUserInfo()
-      .then((info) => {
-        setCurrentUser(info);
-        setUserName(info.name);
-        setUserDescription(info.about);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+    if (token) {
+      api.getUserInfo(token).then((data) => {
+        setCurrentUser(data.data);
+      });
+    }
+  }, [token]);
 
   React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+    if (token) {
+      api.getInitialCards(token).then((data) => {
+        setCards(data.data);
+      });
+    }
+  }, [token]);
 
   const renderCards = () =>
     cards.map((card) => {
@@ -81,29 +77,12 @@ function App() {
     });
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-
-    if (isLiked) {
-      api
-        .handleUnLikeClick(card._id)
-        .then((newCard) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCard : c))
-          );
-        })
-
-        .catch((err) => console.error(err));
-    } else {
-      api
-        .handleLikeClick(card._id, !isLiked)
-        .then((newCard) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCard : c))
-          );
-        })
-
-        .catch((err) => console.error(err));
-    }
+    const isLiked = card.likes.some((id) => id === currentUser._id);
+    api.handleLikeCardStatus(card._id, isLiked, token).then((newCard) => {
+      setCards((state) =>
+        state.map((c) => (c._id === card._id ? newCard.data : c))
+      );
+    });
   }
 
   function handleEditProfileClick() {
@@ -127,31 +106,26 @@ function App() {
     setEraseCardAsk(true);
     setSelectedCard(card);
   }
-  /////cambiar avatar
 
-  function handleUpdateAvatar(data) {
+  function handleUpdateAvatar(link) {
     api
-      .handleChangeAvatar(data)
-      .then((data) => setCurrentUser(data))
-      .catch((err) => console.error(err));
+      .handleChangeAvatar(link, token)
+      .then((data) =>
+        setCurrentUser({ ...currentUser, avatar: data.data.avatar })
+      );
     closeAllPopups();
   }
 
   /////Modificar el Profile
-  function handleUpdateUser(data) {
-    api
-      .handleEditProfile(data)
-      .then((res) => {
-        api
-          .getUserInfo()
-          .then((info) => {
-            setCurrentUser(info);
-            setUserName(info.name);
-            setUserDescription(info.about);
-          })
-          .catch((err) => console.error(err));
-      })
-      .catch((err) => console.error(err));
+  function handleUpdateUser({ name, about }) {
+    api.handleEditProfile({ name, about }, token).then((data) => {
+      setCurrentUser({
+        ...currentUser,
+        name: data.data.name,
+        about: data.data.about,
+      });
+    });
+
     closeAllPopups();
   }
 
@@ -164,11 +138,11 @@ function App() {
   }
 
   //Agregar un nuevo Lugar
-  function handleAddPlaceSubmit(data) {
+  function handleAddPlaceSubmit({ title, link }) {
+    //echa un vistazo aquí token
     api
-      .handleAddCard(data)
-      .then((newCard) => setCards([newCard, ...cards]))
-      .catch((err) => console.error(err));
+      .handleAddCard({ title, link }, token)
+      .then((newCard) => setCards([...cards, newCard.data]));
     closeAllPopups();
   }
   function handleNewPlaceTitleChange(e) {
@@ -179,17 +153,13 @@ function App() {
     setNewPlaceLink(e.target.value);
   }
 
-  function handleCardDelete(card) {
-    api
-      .handleDeleteCard(card.cardId)
-      .then((deletedCardId) => {
-        function dontDeleted(item) {
-          return item._id !== card.cardId;
-        }
-        const newCardArray = cards.filter(dontDeleted);
-        setCards(newCardArray);
-      })
-      .catch((err) => console.error(err));
+  function handleCardDelete(cardId) {
+    //echa un vistazo aquí token
+    api.handleDeleteCard(
+      cardId,
+      () => setCards((state) => state.filter((c) => c._id !== cardId)),
+      token
+    );
 
     closeAllPopups();
   }

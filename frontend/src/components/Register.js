@@ -22,14 +22,15 @@ const Register = () => {
   const onRegister = (e) => {
     e.preventDefault();
     const { password, email } = formData;
+    console.log(formData);
     auth.register(password, email).then((res) => {
       console.log(res);
-      if (res.data) {
+      /*if (res.data) {
         navigate("/signin", { state: "success" });
       } else {
         setError(true);
       }
-      setInfoToolOpen(true);
+      setInfoToolOpen(true);*/
     });
   };
   return (

@@ -1,6 +1,8 @@
-export const BASE_URL = "https://register.nomoreparties.co";
+export const BASE_URL = "https://localhost:4000";
 
 export const register = (password, email) => {
+  console.log(`${BASE_URL}/signup`);
+  console.log(password, email);
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -9,12 +11,15 @@ export const register = (password, email) => {
     body: JSON.stringify({ password, email }),
   })
     .then((response) => {
+      console.log(response + "en register de auth");
       return response.json();
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err, "por qué fallo el fetch?"));
 };
 
 export const authorize = (password, email) => {
+  console.log(`${BASE_URL}/signin`);
+  console.log(password, email);
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
@@ -24,6 +29,7 @@ export const authorize = (password, email) => {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       if (data.token) {
         localStorage.setItem("jwt", data.token);
         return data;
@@ -33,6 +39,7 @@ export const authorize = (password, email) => {
 };
 
 export const checkToken = (token) => {
+  console.log(token);
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {

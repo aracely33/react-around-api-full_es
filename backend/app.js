@@ -76,8 +76,9 @@ app.use((err, req, res, next) => {
         'Al registrarse, se especificó un correo electrónico que ya existe en el servidor',
     });
   }
-  console.log(err);
   res.status(500).send({ message: 'Se ha producido un error en el servidor' });
 });
 
-app.listen(4000);
+app.listen(4000, () => {
+  console.log('escuchando en el puerto 4000');
+});

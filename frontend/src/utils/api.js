@@ -1,149 +1,171 @@
 class API {
-  constructor(options) {
-    this.options = options;
+  constructor({ baseUrl, headers }) {
+    this.baseUrl = baseUrl;
+    this.headers = headers;
+    console.log(this.baseUrl);
   }
 
-  getUserInfo() {
-    return fetch(
-      "https://around.nomoreparties.co/v1/web_es_cohort_04/users/me",
-      {
+  async getUserInfo(token) {
+    try {
+      const response = await fetch(`${this.baseUrl}/users/me`, {
         headers: {
-          authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
+          ...this.headers,
+          authorization: `Bearer ${token}`,
         },
+      });
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error:${response.status}`);
       }
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
-  getInitialCards() {
-    return fetch("https://around.nomoreparties.co/v1/web_es_cohort_04/cards", {
-      headers: {
-        authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
-      },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
+  async getInitialCards(token) {
+    try {
+      const response = await fetch(`${this.baseUrl}/cards`, {
+        headers: {
+          ...this.headers,
+          authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error:${response.status}`);
       }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
-  handleDeleteCard(cardId) {
-    return fetch(
-      `https://around.nomoreparties.co/v1/web_es_cohort_04/cards/${cardId}`,
-      {
+  async handleDeleteCard(cardId, onDeleteCard, token) {
+    try {
+      const response = await fetch(`${this.baseUrl}/cards/${cardId}`, {
         method: "DELETE",
         headers: {
-          authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
+          ...this.headers,
+          authorization: `Bearer ${token}`,
         },
+      });
+      if (response.ok) {
+        onDeleteCard();
+      } else {
+        return Promise.reject(`Error: ${response.status}`);
       }
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
-  handleEditProfile(value) {
-    return fetch(
-      "https://around.nomoreparties.co/v1/web_es_cohort_04/users/me",
-      {
+  async handleEditProfile(body, token) {
+    const { name, about } = body;
+    try {
+      const response = await fetch(`${this.baseUrl}/users/me`, {
         method: "PATCH",
         headers: {
-          authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
-          "Content-Type": "application/json",
+          ...this.headers,
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          name: `${value.name}`,
-          about: `${value.about}`,
+          name: name,
+          about: about,
         }),
+      });
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error ${response.status}`);
       }
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
-  handleAddCard(value) {
-    return fetch("https://around.nomoreparties.co/v1/web_es_cohort_04/cards", {
-      method: "POST",
-      headers: {
-        authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: `${value.newPlaceTitle}`,
-        link: `${value.newPlaceLink}`,
-      }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
-  }
-
-  handleLikeClick(cardId) {
-    return fetch(
-      `https://around.nomoreparties.co/v1/web_es_cohort_04/cards/likes/${cardId}`,
-      {
-        method: "PUT",
+  async handleAddCard(body, token) {
+    const { title, link } = body;
+    try {
+      const response = await fetch(`${this.baseUrl}/cards`, {
+        method: "POST",
         headers: {
-          authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
+          ...this.headers,
+          authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({
+          name: title,
+          link: link,
+        }),
+      });
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error ${response.status}`);
       }
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
-  handleUnLikeClick(cardId) {
-    return fetch(
-      `https://around.nomoreparties.co/v1/web_es_cohort_04/cards/likes/${cardId}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
-        },
+  async handleLikeCardStatus(cardId, isLiked, token) {
+    try {
+      let response;
+      if (isLiked) {
+        response = await fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+          method: "DELETE",
+          headers: {
+            ...this.headers,
+            authorization: `Bearer ${token}`,
+          },
+        });
+      } else {
+        response = await fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+          method: "PUT",
+          headers: {
+            ...this.headers,
+            authorization: `Bearer ${token}`,
+          },
+        });
       }
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error ${response.status}`);
       }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 
-  handleChangeAvatar(value) {
-    return fetch(
-      "https://around.nomoreparties.co/v1/web_es_cohort_04/users/me/avatar",
-      {
+  async handleChangeAvatar(link, token) {
+    try {
+      const response = await fetch(`${this.baseUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: {
-          authorization: "a6a0db06-97e2-459a-a0a1-f3c5559ea4e0",
-          "Content-Type": "application/json",
+          ...this.headers,
+          authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          avatar: `${value.avatar}`,
+          avatar: link,
         }),
+      });
+      if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject(`Error ${response.status}`);
       }
-    ).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   }
 }
 
-export default new API();
+const api = new API({
+  baseUrl: "https://localhost:4000",
+  headers: {
+    "content-type": "application/json",
+  },
+});
+
+export default api;
