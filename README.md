@@ -1,11 +1,8 @@
-# react-around-api-full
+# react-around-api-full 🗺
 
 The API of "Around the U.S." with authorization and registration handled by the back-end server.
 
-This repository contains the full API of "Around the U.S." project that features user authorization and user registration and handles cards and users. Please add to this readme:
-
-- a link to repository with the complete React application which uses this API;
-- a link to the website that hosts your API.
+This repository contains the full API of "Around the U.S." project that features user authorization and user registration and handles cards and users. 
 
 ## Características
 
@@ -61,6 +58,10 @@ JWT_SECRET=<secreto para generar tokens JWT>
 
 ## Contribución
 
+https://github.com/aracely33/react-around-api-full_es/assets/33846439/c49450f3-82d7-465e-94e7-edf7f4e145b5
+
+
+
 Si deseas contribuir a este proyecto, por favor...
 
 ## Licencia
@@ -69,5 +70,5 @@ Indica la licencia que deseas utilizar para tu proyecto.
 
 ## Acceso a la Aplicación
 
--Frontend <https://aracely.desarrollointerno.com>
--Backend <https://api.aracely.desarrollointerno.com>
+- Frontend <https://aracely.desarrollointerno.com>
+- Backend <https://api.aracely.desarrollointerno.com>
