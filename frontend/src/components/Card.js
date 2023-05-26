@@ -3,7 +3,9 @@ import { UserContext } from "../contexts/UserContext";
 
 function Card(props) {
   const currentUser = React.useContext(UserContext);
+
   const isOwn = props.cardOwnerId === currentUser._id;
+
   const cardButtonTrashStyle = isOwn
     ? { display: "block" }
     : { display: "none" };

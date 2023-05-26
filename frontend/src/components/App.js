@@ -74,7 +74,6 @@ function App() {
   React.useEffect(() => {
     if (token) {
       api.getInitialCards(token).then((data) => {
-        console.log(data);
         setCards(data.data);
       });
     }
@@ -82,16 +81,16 @@ function App() {
 
   const renderCards = () =>
     cards.map((card) => {
-      const { _id, owner, link, name, likes } = card;
+      //const { _id, owner, link, name, likes } = card;
 
       return (
         <Card
-          key={_id}
-          cardId={_id}
-          cardOwnerId={owner._id}
-          link={link}
-          cardName={name}
-          cardLikes={likes}
+          key={card._id}
+          cardId={card._id}
+          cardOwnerId={card.owner}
+          link={card.link}
+          cardName={card.name}
+          cardLikes={card.likes}
           onCardClick={handleCardClick}
           onDeleteCardAsk={handleEraseAsk}
           onCardLike={() => handleCardLike(card)}
@@ -100,7 +99,9 @@ function App() {
     });
 
   function handleCardLike(card) {
+    console.log(card);
     const isLiked = card.likes.some((id) => id === currentUser._id);
+    console.log(isLiked);
     api.handleLikeCardStatus(card._id, isLiked, token).then((newCard) => {
       setCards((state) =>
         state.map((c) => (c._id === card._id ? newCard.data : c))
@@ -131,7 +132,6 @@ function App() {
   }
 
   function handleUpdateAvatar(link) {
-    console.log(`handleUpdateAvatar de app link : ${link}`);
     api
       .handleChangeAvatar(link, token)
       .then((data) =>
@@ -163,9 +163,7 @@ function App() {
 
   //Agregar un nuevo Lugar
   function handleAddPlaceSubmit({ newPlaceTitle: title, newPlaceLink: link }) {
-    console.log(`el valor de title es ${title} y el valor de link es:${link}`);
     api.handleAddCard({ title, link }, token).then((newCard) => {
-      console.log(newCard);
       setCards([...cards, newCard.data]);
     });
     closeAllPopups();
@@ -178,11 +176,16 @@ function App() {
     setNewPlaceLink(e.target.value);
   }
 
-  function handleCardDelete(cardId) {
-    //echa un vistazo aquí token
+  function handleCardDelete(card) {
     api.handleDeleteCard(
-      cardId,
-      () => setCards((state) => state.filter((c) => c._id !== cardId)),
+      card.cardId,
+      () => {
+        function getDondeletedCards(item) {
+          return item._id !== card.cardId;
+        }
+        const newCardArray = cards.filter(getDondeletedCards);
+        setCards(newCardArray);
+      },
       token
     );
 

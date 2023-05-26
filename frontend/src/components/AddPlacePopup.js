@@ -3,8 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 
 export default function AddPlacePopup(props) {
   const { newPlaceLink, newPlaceTitle } = props;
-  console.log(newPlaceLink, newPlaceTitle);
-
   function handleSubmit(e) {
     e.preventDefault();
     props.onAddPlaceSubmit({ newPlaceTitle, newPlaceLink });

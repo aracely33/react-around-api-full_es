@@ -2,7 +2,6 @@ class API {
   constructor({ baseUrl, headers }) {
     this.baseUrl = baseUrl;
     this.headers = headers;
-    console.log(this.baseUrl);
   }
 
   async getUserInfo(token) {
@@ -86,7 +85,6 @@ class API {
 
   async handleAddCard(body, token) {
     const { title, link } = body;
-    console.log(`el body en handleAddCard es ${body}`);
 
     try {
       const response = await fetch(`${this.baseUrl}/cards`, {
@@ -141,7 +139,6 @@ class API {
   }
 
   async handleChangeAvatar(link, token) {
-    console.log(`link para cambiar el avatar ${link}`);
     try {
       const response = await fetch(`${this.baseUrl}/users/me/avatar`, {
         method: "PATCH",

@@ -12,7 +12,9 @@ const createCard = (req, res, next) => {
     .catch(next);
 };
 const deleteCard = (req, res, next) => {
+  const { _id } = req.user;
   const { cardId } = req.params;
+
   Card.findByIdAndRemove(cardId)
     .orFail()
     .then((card) => {
