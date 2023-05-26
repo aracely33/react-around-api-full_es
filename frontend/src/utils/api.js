@@ -164,6 +164,7 @@ class API {
 
 const api = new API({
   baseUrl: "https://api.aracely.desarrollointerno.com",
+
   headers: {
     "content-type": "application/json",
   },
