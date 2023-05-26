@@ -162,7 +162,7 @@ function App() {
   }
 
   //Agregar un nuevo Lugar
-  function handleAddPlaceSubmit({ title, link }) {
+  function handleAddPlaceSubmit({ newPlaceTitle: title, newPlaceLink: link }) {
     console.log(`el valor de title es ${title} y el valor de link es:${link}`);
     api.handleAddCard({ title, link }, token).then((newCard) => {
       console.log(newCard);
