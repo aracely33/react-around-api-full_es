@@ -55,6 +55,7 @@ class API {
         return Promise.reject(`Error: ${response.status}`);
       }
     } catch (error) {
+      console.log(error);
       throw new Error(`${error}`);
     }
   }

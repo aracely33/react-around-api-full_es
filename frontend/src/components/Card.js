@@ -3,13 +3,12 @@ import { UserContext } from "../contexts/UserContext";
 
 function Card(props) {
   const currentUser = React.useContext(UserContext);
-
+  const isLiked = props.cardLikes.some((i) => i === currentUser._id);
   const isOwn = props.cardOwnerId === currentUser._id;
 
   const cardButtonTrashStyle = isOwn
     ? { display: "block" }
     : { display: "none" };
-  const isLiked = props.cardLikes.some((i) => i._id === currentUser._id);
 
   function handleClick() {
     props.onCardClick(props);
@@ -40,9 +39,9 @@ function Card(props) {
         <div className="item__likes-container">
           <button
             type="button"
-            className={`item__place-like-button pointer ${
+            className={`item__place-like-button  ${
               isLiked ? "item__place-like-button_active" : ""
-            }`}
+            } pointer`}
             onClick={props.onCardLike}
           ></button>
           <p className="item__likes-number">{props.cardLikes.length}</p>

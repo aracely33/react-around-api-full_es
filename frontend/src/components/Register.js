@@ -23,9 +23,7 @@ const Register = () => {
   const onRegister = (e) => {
     e.preventDefault();
     const { password, email } = formData;
-    console.log(formData);
     auth.register(password, email).then((res) => {
-      console.log("la respuesta en el componente  Register es: " + res);
       if (res.data) {
         navigate("/signin", { state: "success" });
       } else {

@@ -24,9 +24,8 @@ const Login = ({ handleLogin }) => {
     navigate("/signin", { state: {} });
   };
   const onLogin = (e) => {
-    console.log(e);
     const { password, email } = formData;
-    console.log(formData);
+
     e.preventDefault();
     auth
       .authorize(password, email)

@@ -81,8 +81,6 @@ function App() {
 
   const renderCards = () =>
     cards.map((card) => {
-      //const { _id, owner, link, name, likes } = card;
-
       return (
         <Card
           key={card._id}
@@ -99,9 +97,7 @@ function App() {
     });
 
   function handleCardLike(card) {
-    console.log(card);
     const isLiked = card.likes.some((id) => id === currentUser._id);
-    console.log(isLiked);
     api.handleLikeCardStatus(card._id, isLiked, token).then((newCard) => {
       setCards((state) =>
         state.map((c) => (c._id === card._id ? newCard.data : c))
