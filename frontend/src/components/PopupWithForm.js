@@ -59,7 +59,7 @@ function PopupWithForm(props) {
                         maxLength={maxLength || null}
                         onChange={onChange ? (e) => onChange(e) : null}
                         ref={ref || null}
-                        value={value || value === "" ? value : undefined}
+                        value={value /*|| value === "" ? value : undefined*/}
                         required
                       />
 
