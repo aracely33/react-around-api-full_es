@@ -35,7 +35,7 @@ const likeCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     {
       new: true,
-    }
+    },
   )
     .orFail()
     .then((card) => res.send({ data: card }))
@@ -48,7 +48,7 @@ const dislikeCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     {
       new: true,
-    }
+    },
   )
     .orFail()
     .then((card) => res.send({ data: card }))

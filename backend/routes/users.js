@@ -26,7 +26,7 @@ router.patch(
       }),
     }),
   }),
-  updateAvatar
+  updateAvatar,
 );
 
 module.exports = router;
