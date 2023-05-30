@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
 const bcrypt = require('bcryptjs');
+const User = require('../models/user');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -19,32 +19,30 @@ const getUsersById = (req, res, next) => {
 };
 
 const createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
-  console.log(`el request es : ${req}`);
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
   bcrypt
     .hash(password, 10)
-    .then((hash) =>
-      User.create({
-        name,
-        about,
-        avatar,
-        email,
-        password: hash,
-      })
-    )
+    .then((hash) => User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    }))
     .then((user) => res.send({ data: user }))
     .catch(next);
 };
 
 const updateProfile = (req, res, next) => {
   const { name, about } = req.body;
-  console.log(`el body request es  ${req.body}: `);
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
     {
       new: true,
-    }
+    },
   )
     .orFail()
     .then((user) => res.send({ data: user }))
@@ -58,7 +56,7 @@ const updateAvatar = (req, res, next) => {
     { avatar },
     {
       new: true,
-    }
+    },
   )
     .orFail()
     .then((user) => res.send({ data: user }))
@@ -67,7 +65,6 @@ const updateAvatar = (req, res, next) => {
 
 const login = (req, res) => {
   const { email, password } = req.body;
-  console.log(`el body request es  ${req.body}: `);
   return User.findUserByCredentials(email, password)
     .then((user) => {
       res.send({
@@ -76,7 +73,7 @@ const login = (req, res) => {
           NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
           {
             expiresIn: '7d',
-          }
+          },
         ),
       });
     })
