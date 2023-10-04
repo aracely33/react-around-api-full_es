@@ -25,28 +25,32 @@ This repository contains the full API of "Around the U.S." project that features
 ## Installation
 
 1. Clone this repository to your local machine.
-git clone https://github.com/aracely33/react-around-api-full_es.git
+   
+ `git clone https://github.com/aracely33/react-around-api-full_es.git ` 
 
-2. Navigate to the project directory.
-cd react-around-api-full_es/backend
+3. Navigate to the project directory.
+   
+   `cd react-around-api-full_es/backend `
 
-3. Install server dependencies.
-npm install
+5. Install server dependencies.
+   
+`npm install`
 
-4. Navigate to the client directory (frontend).
-cd react-around-api-full_es/frontend
+7. Navigate to the client directory (frontend).
+   
+`cd react-around-api-full_es/frontend`
 
-5. Install client dependencies.
-npm install
+8. Install client dependencies.
+   
+`npm install`
 
 ## Configuration
 
 1. Create a `.env` file in the project's root directory and provide the following configuration values:
 
-```plaintext
-PORT=<your chosen port>
+`PORT=<your chosen port>
 MONGODB_URI=<URL for your MongoDB database connection>
-JWT_SECRET=<secret for generating JWT tokens>
+JWT_SECRET=<secret for generating JWT tokens>`
 
 
 2. Ensure you have a running instance of MongoDB with the correct connection URL.
@@ -54,9 +58,12 @@ JWT_SECRET=<secret for generating JWT tokens>
 ## Usage
 
 1. Start the server and client simultaneously.
-   npm run dev
+   `npm run dev`
 
 2. Open your web browser and visit http://localhost:<port> to see the application in action.
+
+## Sample
+[Watch the Video](https://github.com/aracely33/react-around-api-full_es/assets/33846439/c49450f3-82d7-465e-94e7-edf7f4e145b5)
 
 ## Contribution Guidelines
 
@@ -66,7 +73,7 @@ If you wish to contribute to this project, please follow these steps:
 
 2. Clone your forked repository to your local development environment:
 
-git clone  https://github.com/aracely33/react-around-api-full_es/assets/33846439/c49450f3-82d7-465e-94e7-edf7f4e145b5
+`git clone  https://github.com/aracely33/react-around-api-full_es/assets/33846439/c49450f3-82d7-465e-94e7-edf7f4e145b5`
 
 3. Create a new branch for your work:
 git checkout -b feature-name
@@ -76,22 +83,23 @@ git checkout -b feature-name
 5. Test your changes thoroughly to ensure they do not introduce errors or issues.
 
 6. Commit your changes locally:
-git commit -m "Descriptive commit message"
+   
+`git commit -m "Descriptive commit message"`
 
-7. Push your changes to your forked repository:
-git push origin feature-name
+8. Push your changes to your forked repository:
+   
+`git push origin feature-name`
 
 
-8. Create a pull request (PR) to propose your changes to the main project repository. Be sure to provide a clear and descriptive PR message.
+10. Create a pull request (PR) to propose your changes to the main project repository. Be sure to provide a clear and descriptive PR message.
 
-9. Your PR will be reviewed by project maintainers or other contributors. Please be patient during the review process.
+11. Your PR will be reviewed by project maintainers or other contributors. Please be patient during the review process.
 
-10. By contributing to this project, you agree to release your contributions under the project's specified license.
+12. By contributing to this project, you agree to release your contributions under the project's specified license.
 
-11. Thank you for contributing to our project! Your efforts are greatly appreciated.
+13. Thank you for contributing to our project! Your efforts are greatly appreciated.
 
-## Sample
-https://github.com/aracely33/react-around-api-full_es/assets/33846439/c49450f3-82d7-465e-94e7-edf7f4e145b5
+
 
 ----------
 
