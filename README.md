@@ -4,71 +4,94 @@ The API of "Around the U.S." with authorization and registration handled by the 
 
 This repository contains the full API of "Around the U.S." project that features user authorization and user registration and handles cards and users. 
 
-## Características
+## Features 
 
-- Registro de usuarios utilizando correo electrónico y contraseña.
-- Inicio de sesión de usuarios registrados.
-- Cambio de datos de usuario, como nombre y contraseña.
-- Cambio de la foto de perfil del usuario.
-- Agregar tarjetas a la aplicación.
-- Dar "Me gusta" a las tarjetas.
-- Borrar tarjetas creadas por el usuario.
+- User registration using email and password.
+- Login for registered users.
+- Change user data, such as name and password.
+- Change the user's profile picture.
+- Add cards to the application.
+- Like cards.
+- Delete cards created by the user.
 
-## Tecnologías Utilizadas
+## Technologies Used
 
-- Express.js: Framework de aplicaciones web para el backend.
-- Node.js: Entorno de ejecución de JavaScript en el backend.
-- React: Biblioteca JavaScript para construir interfaces de usuario interactivas.
-- MongoDB: Base de datos NoSQL utilizada para almacenar los datos de la aplicación.
-- npm: Gestor de paquetes para instalar y administrar las dependencias del proyecto.
+- Express.js: A web application framework for the backend.
+- Node.js: A JavaScript runtime environment for the backend.
+- React: A JavaScript library for building interactive user interfaces.
+- MongoDB: A NoSQL database used to store application data.
+- npm: A package manager for installing and managing project dependencies.
 
-## Instalación
+## Installation
 
-1. Clona este repositorio en tu máquina local.
-   git clone <https://github.com/aracely33/react-around-api-full_es.git>
+1. Clone this repository to your local machine.
+git clone https://github.com/aracely33/react-around-api-full_es.git
 
-2. Navega al directorio del proyecto.
-   cd <react-around-api-full_es/backend>
+2. Navigate to the project directory.
+cd react-around-api-full_es/backend
 
-3. Instala las dependencias del servidor.
-   npm install
+3. Install server dependencies.
+npm install
 
-4. Navega al directorio del cliente (frontend).
-   cd <react-around-api-full_es/frontend>
+4. Navigate to the client directory (frontend).
+cd react-around-api-full_es/frontend
 
-5. Instala las dependencias del cliente.
-   npm install
+5. Install client dependencies.
+npm install
 
-## Configuración
+## Configuration
 
-1. Crea un archivo `.env` en el directorio raíz del proyecto y proporciona los siguientes valores de configuración:
+1. Create a `.env` file in the project's root directory and provide the following configuration values:
 
-PORT=<puerto de tu elección>
-MONGODB_URI=<URL de conexión a tu base de datos MongoDB>
-JWT_SECRET=<secreto para generar tokens JWT>
+```plaintext
+PORT=<your chosen port>
+MONGODB_URI=<URL for your MongoDB database connection>
+JWT_SECRET=<secret for generating JWT tokens>
 
-2. Asegúrate de tener una instancia de MongoDB en ejecución con la URL de conexión correcta.
 
-## Uso
+2. Ensure you have a running instance of MongoDB with the correct connection URL.
 
-1. Inicia el servidor y el cliente simultáneamente.
+## Usage
+
+1. Start the server and client simultaneously.
    npm run dev
 
-2. Abre tu navegador web y visita `http://localhost:<puerto>` para ver la aplicación en funcionamiento.
+2. Open your web browser and visit http://localhost:<port> to see the application in action.
 
-## Contribución
+## Contribution Guidelines
 
-https://github.com/aracely33/react-around-api-full_es/assets/33846439/c49450f3-82d7-465e-94e7-edf7f4e145b5
+If you wish to contribute to this project, please follow these steps:
+
+1. Fork the repository to your GitHub account.
+
+2. Clone your forked repository to your local development environment:
+
+git clone  https://github.com/aracely33/react-around-api-full_es/assets/33846439/c49450f3-82d7-465e-94e7-edf7f4e145b5
+
+3. Create a new branch for your work:
+git checkout -b feature-name
+
+4. Make your changes, following the project's coding conventions and style guides.
+
+5. Test your changes thoroughly to ensure they do not introduce errors or issues.
+
+6. Commit your changes locally:
+git commit -m "Descriptive commit message"
+
+7. Push your changes to your forked repository:
+git push origin feature-name
 
 
+8. Create a pull request (PR) to propose your changes to the main project repository. Be sure to provide a clear and descriptive PR message.
 
-Si deseas contribuir a este proyecto, por favor...
+9. Your PR will be reviewed by project maintainers or other contributors. Please be patient during the review process.
+
+10. By contributing to this project, you agree to release your contributions under the project's specified license.
+
+11. Thank you for contributing to our project! Your efforts are greatly appreciated.
 
 ## Licencia
 
-Indica la licencia que deseas utilizar para tu proyecto.
+----------
 
-## Acceso a la Aplicación
 
-- Frontend <https://aracely.desarrollointerno.com>
-- Backend <https://api.aracely.desarrollointerno.com>
